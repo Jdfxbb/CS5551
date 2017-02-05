@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="directionsPage">
+<head>
+    <meta charset="UTF-8">
+    <title>Get Directions</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!--google map-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBairt1Z-mmE-7ywYdt17wfRhFSiM2DcZc&libraries=places"
+            async defer></script>
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!--angularjs-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+
+    <style>
+        #map{
+            height: 500px;
+            width: 50%;
+        }
+
+    </style>
+</head>
+<body ng-controller="directionsController as c">
+<h1 class="container">Find your way {{name}}</h1>
+<div class="container">
+    <div class="row">
+        <p>From <input type="text" ng-change="autoCompleteService()" ng-model="origin"></p>
+        <ul ng-repeat="x in c.results">{{x}}</ul>
+        <p>To <input type="text" ng-change="autoCompleteService()" ng-model="destination"></p>
+        <ul></ul>
+        <a class = "btn" ng-click="calcRoute()">Navigate</a>
+    </div>
+    <div id="map"></div>
+    <div>
+        <a class="btn" ng-click="returnHome()">Return Home</a>
+        <a class="btn" ng-click="signOut()">Sign Out</a>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    var app = angular.module('directionsPage', []);
+    app.controller('directionsController', ['$scope', '$http', function($scope,$http){
+        var directionsService = new google.maps.DirectionsService(); // initalize map services
+        var directionsDisplay = new google.maps.DirectionsRenderer();
+        var map = new google.maps.Map(document.getElementById('map'), { // initialize map
+            center: {lat: 39, lng: -94},
+            zoom: 8,
+            mapTypeId: 'hybrid'
+        });
+        directionsDisplay.setMap(map);
+
+        var originResults = [];
+        var destinationResults = [];
+        $scope.results = [];
+
+        navigator.geolocation.getCurrentPosition(function(position){
+            var lat = position.coords.latitude;
+            var lon = position.coords.longitude;
+            return lat + "," + lon;
+        });
+
+        $scope.calcRoute = function(){ // calculate route
+            var start = $scope.origin;
+            var end = $scope.destination;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: 'DRIVING'
+            };
+            directionsService.route(request, function(result, status){
+                if(status == 'OK'){
+                    directionsDisplay.setMap(map);
+                    directionsDisplay.setDirections(result);
+                }
+                console.log(status);
+            });
+        };
+        $scope.signOut = function(){
+            document.location.href = "index.html";
+        };
+        $scope.returnHome = function(){
+            document.location.href = "home.html";
+        };
+        $scope.autoCompleteService = function(){
+            $scope.results.length = 0;
+            var displaySuggestions = function(predictions, status) {
+                if (status != google.maps.places.PlacesServiceStatus.OK) {
+                    alert(status);
+                    return;
+                }
+                console.log(status);
+                predictions.forEach(function (prediction) {
+                    var a = document.createTextNode(prediction.description);
+                    $scope.results.push(a.data);
+                    console.log($scope.results);
+                });
+            };
+                var service = new google.maps.places.AutocompleteService();
+                service.getQueryPredictions({input: $scope.origin}, displaySuggestions);
+        };
+
+    }])
+</script>
