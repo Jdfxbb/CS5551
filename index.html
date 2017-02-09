@@ -22,6 +22,8 @@
         a{
             background-color: rebeccapurple;
             color: white;
+            margin:auto;
+            display: block;
         }
         a:hover{
             background-color:lightsteelblue;
@@ -33,10 +35,6 @@
 
             margin: 16px;
         }
-        .center{
-            text-align:center;
-            color: rebeccapurple;
-        }
         .div1{
             height: 120px;
             border-radius: 5px;
@@ -44,9 +42,19 @@
             align-self: center;
         }
         .div2{
+            margin: auto;
             border-radius: 5px;
             background-color: lightgray;
             padding: 5px;
+        }
+        p{
+            color: rebeccapurple;
+        }
+        h1{
+            color: rebeccapurple;
+        }
+        h4{
+            color: rebeccapurple;
         }
 
     </style>
@@ -63,17 +71,24 @@
         });
         FB.AppEvents.logPageView();
     };
-    (function(d,s,id){
+
+    (function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
-        if(d.getElementById(id)){
-            return;
-        }
-        js = d.createElement(s);
-        js.id = id;
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
         js.src = "//connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js,fjs);
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    function checkLoginState() {
+        FB.getLoginStatus(function(response) {
+            console.log(response.status);
+            if(response.status == 'connected'){
+                document.location.href = "home.html";
+            }
+
+
+        })
     }
-    (document, 'script', 'facebook-jssdk'));
 </script>
 <div class="div1">
 <h1 class="center">CS5551 Demo</h1>
@@ -94,7 +109,7 @@
     <h4>-OR-</h4>
 </div>
 <div class="div1">
-    <fb:login-button login-button scope="public_profile,email" onlogin="checkLoginState();" data-auto-logout-link="true" class="btn myButton"></fb:login-button>
+    <fb:login-button login-button scope="public_profile,email" onlogin="checkLoginState();" data-auto-logout-link="true" class="btn myButton"/>
 </div>
 </body>
 </html>
@@ -113,14 +128,12 @@
             else {
                 $scope.message = "Invalid Login";
             }
-        }
+        };
         $scope.register = function(){
             document.location.href="register.html";
-        }
-        $scope.checkLoginState = function(){
-            FB.getLoginStatus(function(response){
-                statusChangeCallback(response);
-            });
-        }
+        };
+        $scope.login = function(){
+            document.location.href = "home.html";
+        };
     }])
 </script>

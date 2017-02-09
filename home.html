@@ -15,14 +15,59 @@
     <!--angularjs-->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
     <style>
+        body{
+            background-color:white;
+        }
+        a{
+            background-color: rebeccapurple;
+            color: white;
+            margin:auto;
+            display: block;
+        }
+        a:hover{
+            background-color:lightsteelblue;
+        }
+        input{
+            background-color:white;
+        }
+        .myButton{
+
+            margin: 16px;
+        }
+        .div1{
+            height: 50px;
+            border-radius: 5px;
+            background-color: lightsteelblue;
+            align-self: center;
+        }
+        .div2{
+            margin: auto;
+            border-radius: 5px;
+            background-color: lightgray;
+            padding: 5px;
+        }
+        p{
+            color: rebeccapurple;
+        }
+        h1{
+            color: rebeccapurple;
+        }
+        h3{
+            color: rebeccapurple;
+        }
+        h4{
+            color: rebeccapurple;
+        }
 
     </style>
 </head>
 <body ng-controller="homeController">
+<div class="div1">
 <h1>{{name}}'s Home</h1>
-<div>
+</div>
+<div class="div2">
     <h3>Plan Your Next Excursion Here</h3>
-    <div>
+    <div class="div1">
         <a class="btn" ng-click="map()">Plot a route</a>
     </div>
 </div>

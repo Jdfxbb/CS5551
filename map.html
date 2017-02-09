@@ -31,20 +31,62 @@
         .left{
             float: left;
             text-align: right;
-            margin: 2px 10px;
+            margin: 20px 10px;
             display: inline;
         }
         .right{
             float: left;
             text-align: left;
-            margin: 2px 10px;
+            margin: 20px 10px;
             display: inline;
+        }
+        body{
+            background-color:white;
+        }
+        a{
+            background-color: rebeccapurple;
+            color: white;
+            margin:auto;
+            display: block;
+        }
+        a:hover{
+            background-color:lightsteelblue;
+        }
+        input{
+            background-color:white;
+        }
+        .myButton{
+
+            margin: 16px;
+        }
+        .div1{
+            height: 60px;
+            width: 100%;
+            border-radius: 5px;
+            background-color: lightsteelblue;
+            align-self: center;
+        }
+        .div2{
+            width: 100%;
+            border-radius: 5px;
+            background-color: lightgray;
+            padding: 5px;
+            height: 550px;
+            align-self: center;
+        }
+        h1{
+            color: rebeccapurple;
+        }
+        h4{
+            color: rebeccapurple;
         }
 
     </style>
 </head>
-<body id="ctrl" ng-controller="directionsController">
-<h1 class="container">Find your way</h1> <!--Page heading-->
+<body id="ctrl" ng-controller="directionsController" class="container">
+<div class="div1">
+<h1>Find your way</h1> <!--Page heading-->
+</div>
 <div class="container"> <!--outer container for page-->
     <input id="originInput" type="text" placeholder="Origin"> <!--origin search box-->
 
@@ -56,7 +98,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBairt1Z-mmE-7ywYdt17wfRhFSiM2DcZc&libraries=places&callback=initMap"
             async></script>
 
-    <div>
+    <div class="div2">
         <div class="weatherModule left">
             <p>Origin</p>
             <p class="currentConditions" ng-bind-html="renderHtml(origWeather)" id="origWeather"></p>
@@ -68,13 +110,13 @@
             <div class="currentIcon" ng-bind-html="renderHtml(destIcon)" id="destIcon"></div>
         </div>
         <div>
-            <a class="btn btn-primary" ng-click="viewDestination()" ng-disabled="isDisabled">Check out this destination</a>
+            <a class="btn" ng-click="viewDestination()" ng-disabled="isDisabled">Check out this destination</a>
         </div>
     </div>
     <br/>
 
 </div>
-<div> <!--navigation buttons-->
+<div class="div1"> <!--navigation buttons-->
     <a class="btn" ng-click="returnHome()">Return Home</a>
     <a class="btn" ng-click="signOut()">Sign Out</a>
 </div>

@@ -122,37 +122,96 @@
             margin:auto;
             display: block;
         }
+        body{
+            background-color:white;
+        }
+        a{
+            background-color: rebeccapurple;
+            color: white;
+            margin:auto;
+            display: block;
+        }
+        a:hover{
+            background-color:lightsteelblue;
+        }
+        input{
+            background-color:white;
+        }
+        .myButton{
+
+            margin: 16px;
+        }
+        .div1{
+            height: 120px;
+            width: 100%;
+            border-radius: 5px;
+            background-color: lightsteelblue;
+            align-self: center;
+        }
+        .div2{
+            width: 100%;
+            border-radius: 5px;
+            background-color: lightgray;
+            padding: 5px;
+            height: 550px;
+            align-self: center;
+        }
+        h1{
+            color: rebeccapurple;
+        }
+        h4{
+            color: rebeccapurple;
+        }
+        h2{
+            color: rebeccapurple;
+        }
+        h8{
+            color: rebeccapurple;
+        }
+        TABLE{
+            width: 100%;
+            border-radius: 5px;
+            background-color: lightgray;
+            padding: 5px;
+            height: 550px;
+            align-self: center;
+        }
+        ul{
+            padding: 10px 10px 10px 10px;
+            align-self: center;
+
+        }
     </style>
 
 </head>
 <body class="body"  ng-controller="destVenueController">
 <div  class="container">
-    <div>
+    <div class="div1">
         <h1>Find Cool Places Near {{destination}}</h1>
-        <input type="text" id="txt_searchFilter" placeholder="Find cool places at your destination"/>
-        <button id="btn_getReview" ng-click="getVenues()">Get Venues</button>
-    </div>
-    <div id="div_VenueList">
+        <div class="div2">
+        <input type="text" id="txt_searchFilter" placeholder="Find cool places"/>
+        <a class="btn" id="btn_getReview" ng-click="getVenues()">Get Venues</a>
+        </div>
+    <div id="div_VenueList" class="div1" style="height: 500px">
         <h2> Picks For You</h2>
         <h8>Powered by Foursquare</h8>
         <ul>
-            <li ng-repeat="venue in venueList">
+            <ul ng-repeat="venue in venueList">
             <a  href="" ng-click="getReviews(venue)">{{venue.name}}</a>
-            </li>
+            </ul>
         </ul>
     </div>
-    <div id="div_ReviewList" style="display:none;"  >
+    <div id="div_ReviewList" style="display:none;" class="div2" style="height: 500px">
         <p ng-model="ReviewWithSentiment">
         <TABLE BORDER=2 CELLPADDING=4> <TR> <TH COLSPAN=2>Sentiment Analysis From Using Alchemy API </TH> </TR>
             <TR> <TD>Most recent review</TD> <TD>{{ReviewWithSentiment.reviewText}}</TD> </TR>
             <TR> <TD>Sentiment of the review</TD> <TD>{{ReviewWithSentiment.sentiment}}</TD> </TR>
             <TR> <TD>Sentiment Score of the review</TD> <TD>{{ReviewWithSentiment.score}}</TD> </TR>
-            <TR> <TH>{{ReviewWithSentiment.reviewText}}</TH> </TR>
         </TABLE>
         </p>
     </div>
 </div>
-<div> <!--navigation buttons-->
+<div class="div1"> <!--navigation buttons-->
     <a class="btn" ng-click="newDirections()">Choose a New Destination</a>
     <a class="btn" ng-click="returnHome()">Return Home</a>
     <a class="btn" ng-click="signOut()">Sign Out</a>
